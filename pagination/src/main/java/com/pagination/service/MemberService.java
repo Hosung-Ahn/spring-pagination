@@ -8,6 +8,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class MemberService {
@@ -18,5 +20,9 @@ public class MemberService {
             return memberRepository.findByCategory(category, pageable);
         }
         return memberRepository.findAll(pageable);
+    }
+
+    public List<Member> getMembersAfterCursor(String cursor, int limit, Category category) {
+        return memberRepository.findAllAfterCursor(cursor, limit, category);
     }
 }

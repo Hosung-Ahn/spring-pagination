@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class TestController {
     private final MemberService memberService;
 
-    @GetMapping("/members")
+    @GetMapping("/offset")
     public ResponseEntity<?> getMembers(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "20") int size,
@@ -30,4 +30,12 @@ public class TestController {
         return ResponseEntity.ok(memberService.getMembers(category, pageable));
     }
 
+    @GetMapping("/cursor")
+    public ResponseEntity<?> getMembers(
+            @RequestParam(defaultValue = "20") int size,
+            @RequestParam(required = false) String cursor,
+            Category category) {
+
+        return ResponseEntity.ok(memberService.getMembersAfterCursor(cursor, size, category));
+    }
 }
